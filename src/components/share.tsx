@@ -1,4 +1,4 @@
-import React, { CSSProperties, HTMLAttributes } from "react"
+import React, { CSSProperties } from "react"
 
 interface plusProps {
     title: string,
