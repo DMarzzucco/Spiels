@@ -6,9 +6,14 @@ export default {
   ],
   theme: {
     extend: {
+      fontSize: {
+        20: "20px"
+      },
       width: {
         800: "800px",
         300: "300px",
+        200: "200px",
+        100: "100px",
         80: "80px",
         20: "20px",
         10: "10px",
@@ -26,7 +31,7 @@ export default {
         '160': "160px",
         '10': "10px"
       },
-      
+
     },
   },
   plugins: [],
