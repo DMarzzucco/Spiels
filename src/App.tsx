@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import Game from "./pages/Game"
+import { Home, Game } from "./pages"
 function App() {
 
   return (
@@ -7,10 +7,15 @@ function App() {
       <Routes>
         <Route path="/" element={
           <>
-            <Game />
+            <Home />
           </>
         } >
-
+        </Route>
+        <Route path="/Game" element={
+          <>
+            <Game />
+          </>
+        }>
         </Route>
       </Routes>
 

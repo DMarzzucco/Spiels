@@ -31,6 +31,9 @@ export default {
         '160': "160px",
         '10': "10px"
       },
+      backgroundImage: {
+        "Home": "url(https://i.pinimg.com/236x/90/8a/50/908a501fd5db1c55716ed99e812a805b.jpg)"
+      }
 
     },
   },

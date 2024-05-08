@@ -1,4 +1,5 @@
 import React, { CSSProperties } from "react"
+import { Link } from "react-router-dom";
 
 interface plusProps {
     title: string,
@@ -15,11 +16,16 @@ export const Plus: React.FC<plusProps> = ({ title, style }) => {
 // 
 interface MenuProps {
     click?: () => void;
+    restartClick?: () => void;
 }
-export const MenuPause: React.FC<MenuProps> = ({ click }) => {
+export const MenuPause: React.FC<MenuProps> = ({ click, restartClick }) => {
     return (
-        <div className="absolute flex flex-col justify-center items-center p-2 w-300 h-400 bg-green-300">
-            <button onClick={click}>Return</button>
+        <div className="absolute flex flex-col justify-center items-center p-2 w-300 h-400 bg-green-600 rounded-xl shadow-xl shadow-slate-900">
+            <Link className="rounded-xl border p-3 hover:bg-slate-400 hover:text-slate-800" to={"/"}>Exit</Link>
+            <div className="border-t mt-2 pt-3  flex flex-col w-full  ">
+                <button className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={click}>Return</button>
+                <button className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={restartClick}> Restart Game</button>
+            </div>
         </div>
     )
 }

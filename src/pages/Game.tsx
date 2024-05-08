@@ -3,10 +3,7 @@ import { MenuPause, Plus } from '../components/share';
 
 const Game = () => {
     const [ballPosition, setBallPosition] = useState({ x: 395, y: 195 });
-    const [ballSpeed, setBallSpeed] = useState({
-        x: -5,
-        y: 5
-    });
+    const [ballSpeed, setBallSpeed] = useState({ x: -5, y: 5 });
     const [paddleLeftTop, setPaddleLeftTop] = useState<number>(160);
     const [paddleRightTop, setPaddleRightTop] = useState<number>(160);
     const [isPaused, setIsPaused] = useState<boolean>(false);
@@ -19,13 +16,13 @@ const Game = () => {
         ArrowUp: false,
         ArrowDown: false
     })
+    const [showMenuPause, setShowMenuPause] = useState<boolean>(false);
 
     // controls and bars
-    const pauseButton = () => {
-        setIsPaused(!isPaused)
-    }
-    const resetButton = () => {
-        resetGame()
+    const resetButton = () => { resetGame(); setShowMenuPause(false); }
+    const menuResume = () => {
+        setShowMenuPause(false);
+        setIsPaused(false);
     }
     // first -f
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -35,7 +32,9 @@ const Game = () => {
         }));
         if (event.key === " ") {
             setIsPaused(!isPaused);
-        } else if (event.key === "w") {
+            setShowMenuPause(!showMenuPause)
+        }
+        else if (event.key === "w") {
             setPaddleLeftTop(prevTop => Math.max(prevTop - paddleSpeed, 0));
         } else if (event.key === "s") {
             setPaddleLeftTop(prevTop => Math.min(prevTop + paddleSpeed, 320));
@@ -57,9 +56,7 @@ const Game = () => {
                 y: prevPosition.y + ballSpeed.y
             }));
             // T and B 
-            if (ballPosition.y <= 0 || ballPosition.y >= 390) {
-                ballSpeed.y *= -1;
-            }
+            if (ballPosition.y <= 0 || ballPosition.y >= 390) { ballSpeed.y *= -1; }
             // L and R
             if (ballPosition.x < 0 || ballPosition.x >= 790) {
                 ballSpeed.x *= -1;
@@ -85,9 +82,9 @@ const Game = () => {
             ) {
                 ballSpeed.x *= -1;
             }
+
         }
     };
-
 
     const resetGame = () => {
         setBallPosition({ x: 395, y: 195 });
@@ -118,11 +115,8 @@ const Game = () => {
                 <div className="absolute bg-red-500 w-20 h-20 rounded-full" style={{ left: ballPosition.x, top: ballPosition.y }} />
             </div>
             <div className='flex flex-row justify-center items-center '>
-                <button className='p-2 border bg-slate-400 m-2' onClick={pauseButton}>Pause</button>
-                <button className='p-2 border bg-slate-400 m-2' onClick={resetButton}>Resset</button>
+                <button className='p-2 border bg-slate-400 m-2' onClick={menuResume}>Menu</button>
             </div>
-            {/* <MenuPause click={pauseButton}/> */}
-
             {plusFirst ?
                 <Plus title='Uno' style={{ "background": "#06a106", "border": "1px solid #006400" }} />
                 : null
@@ -131,8 +125,10 @@ const Game = () => {
                 <Plus title='Dos' style={{ "background": "#2719e4", "border": "1px solid #1006a1" }} />
                 : null
             }
-
-
+            {showMenuPause ?
+                <MenuPause click={menuResume} restartClick={resetButton} />
+                : null
+            }
         </section>
     );
 };
