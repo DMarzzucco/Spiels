@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { LinkHome } from "../components/share";
 
 function Home() {
     return (
@@ -7,8 +8,8 @@ function Home() {
             <div className="flex flex-col justify-center items-center p-2 m-3 border rounded-xl
             w-300">
                 <h1>Select the Game</h1>
-                <div>
-                    <Link to={"/Game"}>Tenis</Link>
+                <div className="flex flex-col justify-center items-center p-2 m-2">
+                    <LinkHome path="/Game" title="Tenis"/>
                 </div>
             </div>
         </section>

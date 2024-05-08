@@ -29,3 +29,16 @@ export const MenuPause: React.FC<MenuProps> = ({ click, restartClick }) => {
         </div>
     )
 }
+
+// Link 
+interface LinkHomeProp {
+    path: string,
+    title: string
+}
+export const LinkHome: React.FC<LinkHomeProp> = ({ path, title }) => {
+    return (
+        <Link className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:shadow-xl hover:shadow-slate-700" to={path}>
+            <p>{title}</p>
+        </Link>
+    )
+}
