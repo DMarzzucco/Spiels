@@ -1,5 +1,5 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
-import { Counter, MenuPause, Plus } from '../components/share';
+import { Counter, MenuPause, MenuWin, Plus } from '../components/share';
 
 const Game = () => {
     const [ballPosition, setBallPosition] = useState({ x: 395, y: 195 });
@@ -17,6 +17,7 @@ const Game = () => {
         ArrowDown: false
     })
     const [showMenuPause, setShowMenuPause] = useState<boolean>(false);
+    const [showMenuWin, setShowMenuWin] = useState<boolean>(false);
     const [sCounter, setSCounter] = useState<number>(0);
     const [fCounter, setFCounter] = useState<number>(0);
 
@@ -26,6 +27,10 @@ const Game = () => {
     const menuResume = () => {
         setShowMenuPause(false);
         setIsPaused(false);
+    }
+    const winResume = () => {
+        setShowMenuWin(false);
+        resetGame();
     }
     // first -f
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -48,6 +53,7 @@ const Game = () => {
         }
     };
     // ball
+    let limit: number = 2;
     const moveBall = () => {
         if (!isPaused) {
             // console.log("ball", ballPosition);
@@ -67,18 +73,31 @@ const Game = () => {
                     // alert("1")
                     setPlusFirst(true);
                     setTimeout(() => setPlusFirst(false), 1000);
-                    setFCounter(fCounter + 1);
+                    setFCounter(prevCounter => {
+                        const newCounter = prevCounter + 1;
+                        if (newCounter === limit) {
+                            setIsPaused(!isPaused);
+                            setShowMenuWin(!showMenuWin);
+                        }
+                        return newCounter;
+                    });
+                    // setBallSpeed({ x: ballSpeed.x * -1, y: ballSpeed.y * 1.2 })
                 } else {
                     // alert("2")
                     setPlusSecond(true);
                     setTimeout(() => setPlusSecond(false), 1000);
-                    setSCounter(sCounter + 1);
+                    setSCounter(prevCounter => {
+                        const newCounter = prevCounter + 1;
+                        if (newCounter === limit) {
+                            setIsPaused(!isPaused);
+                            setShowMenuWin(!showMenuWin);
+                        }
+                        return newCounter;
+                    });
+
+                    // setBallSpeed({ x: ballSpeed.x * -1, y: ballSpeed.y * 1.2 })
                 }
                 backBall();
-                if (fCounter || sCounter === 10) {
-                    setIsPaused(!isPaused);
-                    setShowMenuPause(!showMenuPause)
-                }
             }
 
             if (
@@ -105,10 +124,11 @@ const Game = () => {
         setPaddleLeftTop(160);
         setPaddleRightTop(160);
         setIsPaused(false);
+        setBallSpeed({ x: -5, y: 5 });
         setFCounter(0);
         setSCounter(0);
     };
-    
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -124,8 +144,8 @@ const Game = () => {
             onKeyDown={handleKeyDown}
         >
             <div className='flex flex-row justify-center items-center w-full'>
-                <Counter color={{"background": "#2719e4"}} counter={sCounter}></Counter>
-                <Counter color={{"background": "#06a106",}} counter={fCounter}></Counter>
+                <Counter color={{ "background": "#2719e4" }} counter={sCounter}></Counter>
+                <Counter color={{ "background": "#06a106", }} counter={fCounter}></Counter>
 
 
             </div>
@@ -150,6 +170,10 @@ const Game = () => {
             }
             {showMenuPause ?
                 <MenuPause click={menuResume} restartClick={resetButton} />
+                : null
+            }
+            {showMenuWin ?
+                <MenuWin restartClick={winResume} />
                 : null
             }
         </section>

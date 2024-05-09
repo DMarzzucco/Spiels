@@ -14,7 +14,8 @@ export const Plus: React.FC<plusProps> = ({ title, style }) => {
         </div>
     )
 }
-// 
+// Menu Pause
+
 interface MenuProps {
     click?: () => void;
     restartClick?: () => void;
@@ -26,6 +27,19 @@ export const MenuPause: React.FC<MenuProps> = ({ click, restartClick }) => {
             <div className="border-t mt-2 pt-3  flex flex-col w-full  ">
                 <button className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={click}>Return</button>
                 <button className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={restartClick}> Restart Game</button>
+            </div>
+        </div>
+    )
+}
+
+//MenuWin 
+export const MenuWin: React.FC<MenuProps> = ({ restartClick }) => {
+    return (
+        <div className="absolute flex flex-col justify-center items-center p-2 w-300 h-400 bg-blue-600 rounded-xl shadow-xl shadow-slate-900">
+            <h1>You Win</h1>
+            <Link className="rounded-xl border p-3 hover:bg-slate-400 hover:text-slate-800" to={"/"}>Exit</Link>
+            <div className="border-t mt-2 pt-3  flex flex-col w-full  ">
+                <button className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={restartClick}>New Game</button>
             </div>
         </div>
     )
@@ -45,11 +59,11 @@ export const LinkHome: React.FC<LinkHomeProp> = ({ path, title }) => {
 }
 // counter
 
-interface CounterProps{
-    counter:number,
-    color:CSSProperties,
+interface CounterProps {
+    counter: number,
+    color: CSSProperties,
 }
-export const Counter: React.FC<CounterProps> = ({counter, color})=>{
+export const Counter: React.FC<CounterProps> = ({ counter, color }) => {
     return (
         <div style={color} className="border p-2 m-3 flex flex-col justify-center items-center rounded-xl">
             <h1>Contador de puntos</h1>
