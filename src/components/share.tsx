@@ -1,3 +1,4 @@
+import { ChildProps } from "postcss";
 import React, { CSSProperties } from "react"
 import { Link } from "react-router-dom";
 
@@ -40,5 +41,21 @@ export const LinkHome: React.FC<LinkHomeProp> = ({ path, title }) => {
         <Link className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:shadow-xl hover:shadow-slate-700" to={path}>
             <p>{title}</p>
         </Link>
+    )
+}
+// counter
+
+interface CounterProps{
+    counter:number,
+    color:CSSProperties,
+}
+export const Counter: React.FC<CounterProps> = ({counter, color})=>{
+    return (
+        <div style={color} className="border p-2 m-3 flex flex-col justify-center items-center rounded-xl">
+            <h1>Contador de puntos</h1>
+            <div>
+                {counter}
+            </div>
+        </div>
     )
 }

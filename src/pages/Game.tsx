@@ -1,5 +1,5 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
-import { MenuPause, Plus } from '../components/share';
+import { Counter, MenuPause, Plus } from '../components/share';
 
 const Game = () => {
     const [ballPosition, setBallPosition] = useState({ x: 395, y: 195 });
@@ -17,6 +17,9 @@ const Game = () => {
         ArrowDown: false
     })
     const [showMenuPause, setShowMenuPause] = useState<boolean>(false);
+    const [sCounter, setSCounter] = useState<number>(0);
+    const [fCounter, setFCounter] = useState<number>(0);
+
 
     // controls and bars
     const resetButton = () => { resetGame(); setShowMenuPause(false); }
@@ -61,15 +64,21 @@ const Game = () => {
             if (ballPosition.x < 0 || ballPosition.x >= 790) {
                 ballSpeed.x *= -1;
                 if (ballPosition.x <= 0) {
-                    // alert("Gol para el jugador 1")
+                    // alert("1")
                     setPlusFirst(true);
                     setTimeout(() => setPlusFirst(false), 1000);
+                    setFCounter(fCounter + 1);
                 } else {
-                    // alert("Gol para el jugador 2")
+                    // alert("2")
                     setPlusSecond(true);
                     setTimeout(() => setPlusSecond(false), 1000);
+                    setSCounter(sCounter + 1);
                 }
-                resetGame();
+                backBall();
+                if (fCounter || sCounter === 10) {
+                    setIsPaused(!isPaused);
+                    setShowMenuPause(!showMenuPause)
+                }
             }
 
             if (
@@ -85,13 +94,21 @@ const Game = () => {
 
         }
     };
-
+    const backBall = () => {
+        setBallPosition({ x: 395, y: 195 });
+        setPaddleLeftTop(160);
+        setPaddleRightTop(160);
+        setIsPaused(false);
+    }
     const resetGame = () => {
         setBallPosition({ x: 395, y: 195 });
         setPaddleLeftTop(160);
         setPaddleRightTop(160);
         setIsPaused(false);
+        setFCounter(0);
+        setSCounter(0);
     };
+    
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -106,6 +123,12 @@ const Game = () => {
             tabIndex={0}
             onKeyDown={handleKeyDown}
         >
+            <div className='flex flex-row justify-center items-center w-full'>
+                <Counter color={{"background": "#2719e4"}} counter={sCounter}></Counter>
+                <Counter color={{"background": "#06a106",}} counter={fCounter}></Counter>
+
+
+            </div>
             <div
                 className="relative bg-blue-300 w-800 h-400"
                 style={{ pointerEvents: 'all' }}
