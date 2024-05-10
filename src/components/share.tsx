@@ -10,7 +10,7 @@ export const Plus: React.FC<plusProps> = ({ title, style }) => {
     return (
         <div className=" absolute p-2 w-200 flex justify-center rounded-xl items-center text-slate-300 text-center text-20 "
             style={style}>
-            <p className="p-2">Punto para el jugador <br /> {title}</p>
+            <p className="p-2">Punto para  <br /> {title}</p>
         </div>
     )
 }
@@ -19,7 +19,7 @@ export const Plus: React.FC<plusProps> = ({ title, style }) => {
 interface MenuProps {
     click?: () => void;
     restartClick?: () => void;
-    name?:  string | number;
+    name?: string | number | null;
 }
 export const MenuPause: React.FC<MenuProps> = ({ click, restartClick }) => {
     return (
@@ -37,7 +37,7 @@ export const MenuPause: React.FC<MenuProps> = ({ click, restartClick }) => {
 export const MenuWin: React.FC<MenuProps> = ({ restartClick, name }) => {
     return (
         <div className="absolute flex flex-col justify-center items-center p-2 w-300 h-400 bg-blue-600 rounded-xl shadow-xl shadow-slate-900">
-            <h1>{name} Win</h1>
+            <h1 className="text-center">{name} <br /> Win</h1>
             <Link className="rounded-xl border p-3 hover:bg-slate-400 hover:text-slate-800" to={"/"}>Exit</Link>
             <div className="border-t mt-2 pt-3  flex flex-col w-full  ">
                 <button className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={restartClick}>New Game</button>
@@ -63,11 +63,12 @@ export const LinkHome: React.FC<LinkHomeProp> = ({ path, title }) => {
 interface CounterProps {
     counter: number,
     color: CSSProperties,
+    name?: string | number | null;
 }
-export const Counter: React.FC<CounterProps> = ({ counter, color }) => {
+export const Counter: React.FC<CounterProps> = ({ counter, name, color }) => {
     return (
         <div style={color} className="border p-2 m-3 flex flex-col justify-center items-center rounded-xl">
-            <h1>Contador de puntos</h1>
+            <h1>{name}</h1>
             <div>
                 {counter}
             </div>

@@ -18,6 +18,8 @@ const Game = () => {
     const [inpPut, setInpPut] = useState<boolean>(true);
     const [valueInp1, setValueInp1] = useState<string | number>('');
     const [valueInp2, setValueInp2] = useState<string | number>('');
+    const [winner, setWinner] = useState<string | number | null>(null);
+    const [showError, setShowError] = useState<boolean>(false);
     const [keyState, setKeyState] = useState({
         w: false,
         s: false,
@@ -25,8 +27,6 @@ const Game = () => {
         ArrowDown: false
     })
 
-
-    const startButton = () => { resetGame(); setIsPaused(false); setInpPut(!inpPut); }
     const resetButton = () => { resetGame(); setShowMenuPause(false); }
     const menuResume = () => {
         setShowMenuPause(false);
@@ -36,6 +36,17 @@ const Game = () => {
         setShowMenuWin(false);
         resetGame();
     }
+    const startButton = () => {
+        if (valueInp1 === '' || valueInp2 === '') {
+            setShowError(true);
+            setTimeout(() => setShowError(false), 1000);
+            return;
+        }
+        resetGame();
+        setIsPaused(false);
+        setInpPut(!inpPut);
+    }
+
     // take input value
     const takeFvalueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValueInp1(event.target.value);
@@ -92,6 +103,7 @@ const Game = () => {
                         const newCounter = prevCounter + 1;
                         if (newCounter === limit) {
                             setIsPaused(!isPaused);
+                            setWinner(valueInp1);
                             setShowMenuWin(!showMenuWin);
                         }
                         return newCounter;
@@ -105,6 +117,7 @@ const Game = () => {
                         const newCounter = prevCounter + 1;
                         if (newCounter === limit) {
                             setIsPaused(!isPaused);
+                            setWinner(valueInp2);
                             setShowMenuWin(!showMenuWin);
                         }
                         return newCounter;
@@ -158,12 +171,12 @@ const Game = () => {
             tabIndex={0}
             onKeyDown={handleKeyDown}
         >
-            <div className='flex flex-row justify-center items-center w-full'>
-                <Counter color={{ "background": "#2719e4" }} counter={sCounter}></Counter>
-                <Counter color={{ "background": "#06a106", }} counter={fCounter}></Counter>
-
-
-            </div>
+            {!inpPut ?
+                <div className='flex flex-row justify-center items-center w-full'>
+                    <Counter name={valueInp2} color={{ "background": "#2719e4" }} counter={sCounter}></Counter>
+                    <Counter name={valueInp1} color={{ "background": "#06a106", }} counter={fCounter}></Counter>
+                </div> : null
+            }
             <div
                 className="relative bg-blue-300 w-800 h-400"
                 style={{ pointerEvents: 'all' }}
@@ -188,7 +201,7 @@ const Game = () => {
                 : null
             }
             {showMenuWin ?
-                <MenuWin restartClick={winResume} />
+                <MenuWin name={winner} restartClick={winResume} />
                 : null
             }
             {inpPut ?
@@ -196,6 +209,7 @@ const Game = () => {
 
                     <input type="text" value={valueInp1} onChange={takeFvalueChange} placeholder="Name" />
                     <input type="text" value={valueInp2} onChange={takeSvalueChange} placeholder="Name" />
+                    {showError?<h1>Error </h1> :null}
                     <button onClick={startButton}>
                         Start
                     </button>
