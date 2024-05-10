@@ -1,28 +1,32 @@
-import { useState, useEffect, KeyboardEvent } from 'react';
+import React, { useState, useEffect, KeyboardEvent } from 'react';
 import { Counter, MenuPause, MenuWin, Plus } from '../components/share';
+import { Link } from 'react-router-dom';
 
 const Game = () => {
     const [ballPosition, setBallPosition] = useState({ x: 395, y: 195 });
     const [ballSpeed, setBallSpeed] = useState({ x: -5, y: 5 });
     const [paddleLeftTop, setPaddleLeftTop] = useState<number>(160);
     const [paddleRightTop, setPaddleRightTop] = useState<number>(160);
-    const [isPaused, setIsPaused] = useState<boolean>(false);
+    const [isPaused, setIsPaused] = useState<boolean>(true);
     const [plusFirst, setPlusFirst] = useState<boolean | string>(false);
     const [plusSecond, setPlusSecond] = useState<boolean | string>(false)
-    const paddleSpeed = 25;
+    const paddleSpeed: number = 25;
+    const [showMenuPause, setShowMenuPause] = useState<boolean>(false);
+    const [showMenuWin, setShowMenuWin] = useState<boolean>(false);
+    const [sCounter, setSCounter] = useState<number>(0);
+    const [fCounter, setFCounter] = useState<number>(0);
+    const [inpPut, setInpPut] = useState<boolean>(true);
+    const [valueInp1, setValueInp1] = useState<string | number>('');
+    const [valueInp2, setValueInp2] = useState<string | number>('');
     const [keyState, setKeyState] = useState({
         w: false,
         s: false,
         ArrowUp: false,
         ArrowDown: false
     })
-    const [showMenuPause, setShowMenuPause] = useState<boolean>(false);
-    const [showMenuWin, setShowMenuWin] = useState<boolean>(false);
-    const [sCounter, setSCounter] = useState<number>(0);
-    const [fCounter, setFCounter] = useState<number>(0);
 
 
-    // controls and bars
+    const startButton = () => { resetGame(); setIsPaused(false); setInpPut(!inpPut); }
     const resetButton = () => { resetGame(); setShowMenuPause(false); }
     const menuResume = () => {
         setShowMenuPause(false);
@@ -32,25 +36,36 @@ const Game = () => {
         setShowMenuWin(false);
         resetGame();
     }
-    // first -f
+    // take input value
+    const takeFvalueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValueInp1(event.target.value);
+    }
+    const takeSvalueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValueInp2(event.target.value);
+    }
+
+    // controls and bars
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-        const key = event.key;
-        setKeyState((prevKeysState) => ({
-            ...prevKeysState, [key]: true
-        }));
-        if (event.key === " ") {
-            setIsPaused(!isPaused);
-            setShowMenuPause(!showMenuPause)
-        }
-        else if (event.key === "w") {
-            setPaddleLeftTop(prevTop => Math.max(prevTop - paddleSpeed, 0));
-        } else if (event.key === "s") {
-            setPaddleLeftTop(prevTop => Math.min(prevTop + paddleSpeed, 320));
-        } else if (event.key === "ArrowUp") {
-            setPaddleRightTop(prevTop => Math.max(prevTop - paddleSpeed, 0));
-        } else if (event.key === "ArrowDown") {
-            setPaddleRightTop(prevTop => Math.min(prevTop + paddleSpeed, 320));
-        }
+
+        if (inpPut === false) {
+            const key = event.key;
+            setKeyState((prevKeysState) => ({
+                ...prevKeysState, [key]: true
+            }));
+            if (event.key === " ") {
+                setIsPaused(!isPaused);
+                setShowMenuPause(!showMenuPause)
+            }
+            else if (event.key === "w") {
+                setPaddleLeftTop(prevTop => Math.max(prevTop - paddleSpeed, 0));
+            } else if (event.key === "s") {
+                setPaddleLeftTop(prevTop => Math.min(prevTop + paddleSpeed, 320));
+            } else if (event.key === "ArrowUp") {
+                setPaddleRightTop(prevTop => Math.max(prevTop - paddleSpeed, 0));
+            } else if (event.key === "ArrowDown") {
+                setPaddleRightTop(prevTop => Math.min(prevTop + paddleSpeed, 320));
+            }
+        } else if (inpPut === true) { }
     };
     // ball
     let limit: number = 2;
@@ -161,11 +176,11 @@ const Game = () => {
                 <button className='p-2 border bg-slate-400 m-2' onClick={menuResume}>Menu</button>
             </div>
             {plusFirst ?
-                <Plus title='Uno' style={{ "background": "#06a106", "border": "1px solid #006400" }} />
+                <Plus title={valueInp1} style={{ "background": "#06a106", "border": "1px solid #006400" }} />
                 : null
             }
             {plusSecond ?
-                <Plus title='Dos' style={{ "background": "#2719e4", "border": "1px solid #1006a1" }} />
+                <Plus title={valueInp2} style={{ "background": "#2719e4", "border": "1px solid #1006a1" }} />
                 : null
             }
             {showMenuPause ?
@@ -175,6 +190,17 @@ const Game = () => {
             {showMenuWin ?
                 <MenuWin restartClick={winResume} />
                 : null
+            }
+            {inpPut ?
+                <div className="w-300 h-400 absolute flex flex-col justify-center items-center bg-slate-300 text-slate-900">
+
+                    <input type="text" value={valueInp1} onChange={takeFvalueChange} placeholder="Name" />
+                    <input type="text" value={valueInp2} onChange={takeSvalueChange} placeholder="Name" />
+                    <button onClick={startButton}>
+                        Start
+                    </button>
+                    <Link className="rounded-xl border p-3 hover:bg-slate-400 hover:text-slate-800" to={"/"}>Exit</Link>
+                </div> : null
             }
         </section>
     );
