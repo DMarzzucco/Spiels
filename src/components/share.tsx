@@ -1,4 +1,3 @@
-import { ChildProps } from "postcss";
 import React, { CSSProperties } from "react"
 import { Link } from "react-router-dom";
 
@@ -15,7 +14,6 @@ export const Plus: React.FC<plusProps> = ({ title, style }) => {
     )
 }
 // Menu Pause
-
 interface MenuProps {
     click?: () => void;
     restartClick?: () => void;
@@ -32,7 +30,6 @@ export const MenuPause: React.FC<MenuProps> = ({ click, restartClick }) => {
         </div>
     )
 }
-
 //MenuWin 
 export const MenuWin: React.FC<MenuProps> = ({ restartClick, name }) => {
     return (
@@ -45,7 +42,6 @@ export const MenuWin: React.FC<MenuProps> = ({ restartClick, name }) => {
         </div>
     )
 }
-
 // Link 
 interface LinkHomeProp {
     path: string,
@@ -59,7 +55,6 @@ export const LinkHome: React.FC<LinkHomeProp> = ({ path, title }) => {
     )
 }
 // counter
-
 interface CounterProps {
     counter: number,
     color: CSSProperties,
