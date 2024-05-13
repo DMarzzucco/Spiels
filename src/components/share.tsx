@@ -1,3 +1,5 @@
+import { IconDefinition } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { CSSProperties } from "react"
 import { Link } from "react-router-dom";
 
@@ -69,4 +71,20 @@ export const Counter: React.FC<CounterProps> = ({ counter, name, color }) => {
             </div>
         </div>
     )
+}
+// footer
+interface FooterProps {
+    path: string;
+    icon: IconDefinition;
+    title: string;
+    src?:string;
+}
+export const LinkFut: React.FC<FooterProps> = ({ path, icon, title }) => {
+    return (
+        <Link className="mx-3 flex flex-col justify-center items-center" to={path}>
+            <FontAwesomeIcon icon={icon} className="text-30"/>
+            <p className="text-15">{title}</p>
+        </Link>
+    )
+
 }

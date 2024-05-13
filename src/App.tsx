@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Home, Game } from "./pages"
+import Footer from "./components/Footer"
 function App() {
 
   return (
@@ -8,6 +9,7 @@ function App() {
         <Route path="/" element={
           <>
             <Home />
+            <Footer/>
           </>
         } >
         </Route>

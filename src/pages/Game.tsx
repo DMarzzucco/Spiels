@@ -159,6 +159,7 @@ const Game = () => {
             {!inpPut ?
                 <div className='flex flex-row justify-center items-center w-full'>
                     <Counter name={valueInp2} color={{ "background": "#2719e4" }} counter={sCounter}></Counter>
+                    <div>{valueLimit}</div>
                     <Counter name={valueInp1} color={{ "background": "#06a106", }} counter={fCounter}></Counter>
                 </div> : null
             }

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { LinkHome } from "../components/share";
 
 function Home() {
@@ -9,7 +8,7 @@ function Home() {
             w-300">
                 <h1>Select the Game</h1>
                 <div className="flex flex-col justify-center items-center p-2 m-2">
-                    <LinkHome path="/Game" title="Tenis"/>
+                    <LinkHome path="/Game" title="Tennis"/>
                 </div>
             </div>
         </section>

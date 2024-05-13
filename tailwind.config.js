@@ -6,8 +6,13 @@ export default {
   ],
   theme: {
     extend: {
+      colors:{
+        blackLight: "#141516"
+      },
       fontSize: {
-        20: "20px"
+        30: "30px",
+        20: "20px",
+        15: "15px",
       },
       width: {
         800: "800px",
