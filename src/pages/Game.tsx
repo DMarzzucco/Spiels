@@ -31,6 +31,7 @@ const Game = () => {
     const resetButton = () => { resetGame(); setShowMenuPause(false); }
     const menuResume = () => { setShowMenuPause(false); setIsPaused(false); }
     const winResume = () => { setShowMenuWin(false); resetGame(); }
+    const NewGame = () => { setShowMenuPause(false); setShowMenuWin(false); setInpPut(true); }
     const startButton = () => {
         const valimt: number = parseFloat(valueLimit.toString());
         if (valueInp1 === '' || valueInp2 === '') {
@@ -159,7 +160,7 @@ const Game = () => {
             {!inpPut ?
                 <div className='flex flex-row justify-center items-center w-full'>
                     <Counter name={valueInp2} color={{ "background": "#2719e4" }} counter={sCounter}></Counter>
-                    <div>{valueLimit}</div>
+                    <div className='border rounded-full w-40 h-40 p-3 m-1 flex justify-center items-center'><b>{valueLimit}</b></div>
                     <Counter name={valueInp1} color={{ "background": "#06a106", }} counter={fCounter}></Counter>
                 </div> : null
             }
@@ -185,13 +186,16 @@ const Game = () => {
                 }} />
                 : null
             }
-            {showMenuPause ? <MenuPause click={menuResume} restartClick={resetButton} /> : null}
-            {showMenuWin ? <MenuWin name={winner} restartClick={winResume} /> : null}
+            {showMenuPause ? <MenuPause newClick={NewGame} click={menuResume} restartClick={resetButton} /> : null}
+            {showMenuWin ? <MenuWin name={winner} newClick={NewGame} restartClick={winResume} /> : null}
             {inpPut ?
-                <div className="rounded-xl w-full h-full absolute flex flex-col justify-center items-center bg-slate-300 bg-opacity-30 text-slate-900">
-                    <input className='bg-slate-700 text-slate-300 w-40 h-40 text-center rounded-xl m-2 ' type="text" value={valueLimit} onChange={takeLimitValue} placeholder="Name" />
-                    <input type="text" value={valueInp1} onChange={takeFvalueChange} placeholder="Name" />
-                    <input type="text" value={valueInp2} onChange={takeSvalueChange} placeholder="Name" />
+                <div className="rounded-xl w-full h-full absolute flex flex-col justify-center items-center  text-slate-900">
+                    <div className='flex flex-col justify-center items-center'>
+                        <h1 className='m-0 font-bold text-20 text-slate-700 '>L I M I T</h1>
+                        <input className='bg-slate-700 text-slate-300 w-40 h-40 text-center rounded-xl m-2 ' type="text" value={valueLimit} onChange={takeLimitValue} placeholder="Name" />
+                    </div>
+                    <input className='border-4 font-bold text-center text-slate-300 rounded-xl p-3 bg-green-800 border-green-400 my-2' type="text" value={valueInp1} onChange={takeFvalueChange} placeholder="P L A Y E R  1" />
+                    <input className='border-4 font-bold text-center text-slate-300 rounded-xl p-3 bg-blue-800 border-blue-400' type="text" value={valueInp2} onChange={takeSvalueChange} placeholder="P L A Y E R  2" />
                     {showError ? <h1>Error </h1> : null}
                     <button onClick={startButton}>
                         Start

@@ -10,9 +10,11 @@ export default {
         blackLight: "#141516"
       },
       fontSize: {
+        50: "50px",
         30: "30px",
         20: "20px",
         15: "15px",
+        10: "10px",
       },
       width: {
         800: "800px",

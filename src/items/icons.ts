@@ -1,2 +1,3 @@
 import { faGitAlt, faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
-export { faGitAlt, faLinkedin, faGithub };
+import { faHouse, faRotateLeft } from "@fortawesome/free-solid-svg-icons";
+export { faGitAlt, faHouse, faRotateLeft, faLinkedin, faGithub };
