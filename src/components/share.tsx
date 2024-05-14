@@ -132,13 +132,16 @@ interface VersusProps {
 }
 export const VersusComp: React.FC<VersusProps> = ({ playerOne, playerTwo }) => {
     return (
-        <div className="absolute w-200 h-200 bg-slate-700 flex flex-col justify-center items-center">
-            <div className="p-2 text-30 bg-green-600 font-bold text-slate-300">
-                <i className="border-b">{playerOne}</i>
-            </div>
-            <i className="text-slate-400">V S</i>
-            <div className="p-2 text-30 bg-blue-600 font-bold text-slate-300">
-                <i className="border-b">{playerTwo}</i>
+        <div className="absolute bg-slate-100 w-auto p-4 h-200 flex flex-col justify-center items-center">
+            <h1 className="m-0 text-50 text-slate-800 font-bold  border-b border-slate-800">!S T A R T !</h1>
+            <div className=" p-4 flex flex-row justify-center items-center -mt-4">
+                <div className="p-2 text-30 text-green-700 font-bold ">
+                    <i>{playerOne}</i>
+                </div>
+                <i className="mx-3 text-slate-800">V S</i>
+                <div className="p-2 text-30 text-blue-700 font-bold ">
+                    <i>{playerTwo}</i>
+                </div>
             </div>
         </div>
     )
@@ -154,5 +157,29 @@ export const Rematch: React.FC<VersusProps> = ({ playerOne, playerTwo }) => {
                 <p className="font-bold text-20 text-blue-700">{playerTwo}</p>
             </div>
         </div>
+    )
+}
+// Error message
+interface ErrorProps {
+    mes: string | boolean;
+}
+export const ErrorMes: React.FC<ErrorProps> = ({ mes }) => {
+    return (
+        <div className=" p-3 bg-red-800 m-2 border-2 border-red-400 rounded-xl flex flex-col justify-center items-center">
+            <h1 className="text-xl font-bold text-slate-300 border-b">!ERROR!</h1>
+            <p className="font-bold text-17 text-slate-300">{mes}.</p>
+        </div>
+    )
+}
+// button plus and rest
+
+interface ecuationProps {
+    click: () => void;
+    title: string
+}
+
+export const BtnEc: React.FC<ecuationProps> = ({ click, title }) => {
+    return (
+        <button className="p-2 border-2 font-bold hover:scale-90 text-slate-300 bg-slate-500 rounded-full  text-xl w-40 h-40 flex justify-center items-center " onClick={click}>{title}</button>
     )
 }

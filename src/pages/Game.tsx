@@ -1,6 +1,8 @@
 import React, { useState, useEffect, KeyboardEvent } from 'react';
-import { Counter, MenuPause, MenuWin, Plus, Rematch, VersusComp } from '../components/share';
+import { BtnEc, Counter, ErrorMes, MenuPause, MenuWin, Plus, Rematch, VersusComp } from '../components/share';
+import { faHouse, faPlay } from "../items/icons.ts";
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Game = () => {
     const [ballPosition, setBallPosition] = useState({ x: 395, y: 195 });
@@ -20,6 +22,7 @@ const Game = () => {
     const [valueLimit, setValueLimit] = useState<number>(0);
     const [winner, setWinner] = useState<string | number | null>(null);
     const [showError, setShowError] = useState<boolean>(false);
+    const [showErrorVl, setShowErrorVl] = useState<boolean>(false);
     const [versus, setVersus] = useState<boolean>(false);
     const [rematch, setRematch] = useState<boolean>(false);
     const [keyState, setKeyState] = useState({
@@ -44,16 +47,24 @@ const Game = () => {
         setRematch(true);
         setTimeout(() => setRematch(false), 1000);
     }
+    // error mes
+    const inputMess: string = " The player name is empty";
+    const errorValue: string = "The limit value must be grater than 0 ";
+
     const startButton = () => {
         const value: number = parseFloat(valueLimit.toString());
+        let errorMessage: string = '';
+
         if (valueInp1 === '' || valueInp2 === '') {
             setShowError(true);
+            errorMessage = inputMess;
             setTimeout(() => setShowError(false), 1000);
             return;
         }
         else if (isNaN(value) || value === 0) {
-            setShowError(true);
-            setTimeout(() => setShowError(false), 1000);
+            setShowErrorVl(true);
+            errorMessage = errorValue;
+            setTimeout(() => setShowErrorVl(false), 1000);
             return;
         }
         setInpPut(!inpPut);
@@ -208,18 +219,23 @@ const Game = () => {
                     <div className='flex flex-col justify-center items-center'>
                         <h1 className='m-0 font-bold text-20 text-slate-700 '>L I M I T</h1>
                         <div className='flex flex-row justify-center items-center'>
-                            <button onClick={restValue}>-</button>
+                            <BtnEc click={restValue} title='-' />
                             <input className='bg-slate-700 text-slate-300 w-40 h-40 text-center rounded-xl m-2 ' type="text" value={valueLimit} placeholder="Name" />
-                            <button onClick={sumValue}>+</button>
+                            <BtnEc click={sumValue} title='+' />
                         </div>
                     </div>
+                    {showErrorVl ? <ErrorMes mes={errorValue} /> : null}
                     <input className='border-4 font-bold text-center text-slate-300 rounded-xl p-3 bg-green-800 border-green-400 my-2' type="text" value={valueInp1} onChange={takeFvalueChange} placeholder="P L A Y E R  1" />
                     <input className='border-4 font-bold text-center text-slate-300 rounded-xl p-3 bg-blue-800 border-blue-400' type="text" value={valueInp2} onChange={takeSvalueChange} placeholder="P L A Y E R  2" />
-                    {showError ? <h1>Error </h1> : null}
-                    <button onClick={startButton}>
-                        Start
-                    </button>
-                    <Link className="rounded-xl border p-3 hover:bg-slate-400 hover:text-slate-800" to={"/"}>Exit</Link>
+                    {showError ? <ErrorMes mes={inputMess} /> : null}
+                    <div className='flex flex-row justify-center items-center my-2'>
+                        <button className="m-2 p-2 text-20 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={startButton}>
+                            <FontAwesomeIcon icon={faPlay} />
+                        </button>
+                        <Link className="m-2 p-2 text-20 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" to={"/"}>
+                            <FontAwesomeIcon icon={faHouse} />
+                        </Link>
+                    </div>
                 </div> : null
             }
         </section>
