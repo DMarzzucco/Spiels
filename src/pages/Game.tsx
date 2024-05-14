@@ -185,6 +185,7 @@ const Game = () => {
             tabIndex={0}
             onKeyDown={handleKeyDown}
         >
+            <div className='hidden'> type W :{keyState.w ? 'yes' : 'no'}</div>
             {!inpPut ?
                 <div className='flex flex-row justify-center items-center w-full'>
                     <Counter name={valueInp2} color={{ "background": "#2719e4" }} counter={sCounter}></Counter>
