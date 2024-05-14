@@ -77,7 +77,6 @@ interface FooterProps {
     path: string;
     icon: IconDefinition;
     title: string;
-    src?:string;
 }
 export const LinkFut: React.FC<FooterProps> = ({ path, icon, title }) => {
     return (

@@ -188,8 +188,8 @@ const Game = () => {
             {showMenuPause ? <MenuPause click={menuResume} restartClick={resetButton} /> : null}
             {showMenuWin ? <MenuWin name={winner} restartClick={winResume} /> : null}
             {inpPut ?
-                <div className="w-300 h-400 absolute flex flex-col justify-center items-center bg-slate-300 text-slate-900">
-                    <input type="text" value={valueLimit} onChange={takeLimitValue} placeholder="Name" />
+                <div className="rounded-xl w-full h-full absolute flex flex-col justify-center items-center bg-slate-300 bg-opacity-30 text-slate-900">
+                    <input className='bg-slate-700 text-slate-300 w-40 h-40 text-center rounded-xl m-2 ' type="text" value={valueLimit} onChange={takeLimitValue} placeholder="Name" />
                     <input type="text" value={valueInp1} onChange={takeFvalueChange} placeholder="Name" />
                     <input type="text" value={valueInp2} onChange={takeSvalueChange} placeholder="Name" />
                     {showError ? <h1>Error </h1> : null}
