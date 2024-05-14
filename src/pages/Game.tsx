@@ -54,7 +54,7 @@ const Game = () => {
     const startButton = () => {
         const value: number = parseFloat(valueLimit.toString());
         let errorMessage: string = '';
-
+        console.log (errorMessage);
         if (valueInp1 === '' || valueInp2 === '') {
             setShowError(true);
             errorMessage = inputMess;
