@@ -224,7 +224,7 @@ const Game = () => {
                         <h1 className='m-0 font-bold text-20 text-slate-700 '>L I M I T</h1>
                         <div className='flex flex-row justify-center items-center'>
                             <BtnEc click={restValue} title='-' />
-                            <input className='bg-slate-700 text-slate-300 w-40 h-40 text-center rounded-xl m-2 ' type="text" value={valueLimit} placeholder="Name" />
+                            <input className='bg-slate-700 text-slate-300 w-40 h-40 text-center rounded-xl m-2 ' type="text" value={valueLimit} readOnly placeholder="Name" />
                             <BtnEc click={sumValue} title='+' />
                         </div>
                     </div>
