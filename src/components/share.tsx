@@ -125,3 +125,34 @@ export const LinkFut: React.FC<FooterProps> = ({ path, icon, title }) => {
     )
 
 }
+// versus
+interface VersusProps {
+    playerOne: string | number;
+    playerTwo: string | number;
+}
+export const VersusComp: React.FC<VersusProps> = ({ playerOne, playerTwo }) => {
+    return (
+        <div className="absolute w-200 h-200 bg-slate-700 flex flex-col justify-center items-center">
+            <div className="p-2 text-30 bg-green-600 font-bold text-slate-300">
+                <i className="border-b">{playerOne}</i>
+            </div>
+            <i className="text-slate-400">V S</i>
+            <div className="p-2 text-30 bg-blue-600 font-bold text-slate-300">
+                <i className="border-b">{playerTwo}</i>
+            </div>
+        </div>
+    )
+}
+// rematch
+export const Rematch: React.FC<VersusProps> = ({ playerOne, playerTwo }) => {
+    return (
+        <div className="absolute flex flex-col justify-center items-center">
+            <h1 className="font-bold text-50 border-b text-slate-800 border-slate-800">R E M A T C H !!</h1>
+            <div className="flex flex-row justify-center items-center text-center">
+                <p className="font-bold text-20 text-green-700">{playerOne}</p>
+                <i className="mx-3 font-bold text-15 text-slate-900">VS</i>
+                <p className="font-bold text-20 text-blue-700">{playerTwo}</p>
+            </div>
+        </div>
+    )
+}

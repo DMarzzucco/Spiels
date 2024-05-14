@@ -1,5 +1,5 @@
 import React, { useState, useEffect, KeyboardEvent } from 'react';
-import { Counter, MenuPause, MenuWin, Plus } from '../components/share';
+import { Counter, MenuPause, MenuWin, Plus, Rematch, VersusComp } from '../components/share';
 import { Link } from 'react-router-dom';
 
 const Game = () => {
@@ -20,6 +20,8 @@ const Game = () => {
     const [valueLimit, setValueLimit] = useState<number>(0);
     const [winner, setWinner] = useState<string | number | null>(null);
     const [showError, setShowError] = useState<boolean>(false);
+    const [versus, setVersus] = useState<boolean>(false);
+    const [rematch, setRematch] = useState<boolean>(false);
     const [keyState, setKeyState] = useState({
         w: false,
         s: false,
@@ -28,33 +30,44 @@ const Game = () => {
     })
     const paddleSpeed: number = 25;
     // buttons 
-    const resetButton = () => { resetGame(); setShowMenuPause(false); }
     const menuResume = () => { setShowMenuPause(false); setIsPaused(false); }
-    const winResume = () => { setShowMenuWin(false); resetGame(); }
     const NewGame = () => { setShowMenuPause(false); setShowMenuWin(false); setInpPut(true); }
+    const winResume = () => {
+        setShowMenuWin(false);
+        resetGame();
+        setRematch(true);
+        setTimeout(() => setRematch(false), 500);
+    }
+    const resetButton = () => {
+        resetGame();
+        setShowMenuPause(false);
+        setRematch(true);
+        setTimeout(() => setRematch(false), 1000);
+    }
     const startButton = () => {
-        const valimt: number = parseFloat(valueLimit.toString());
+        const value: number = parseFloat(valueLimit.toString());
         if (valueInp1 === '' || valueInp2 === '') {
             setShowError(true);
             setTimeout(() => setShowError(false), 1000);
             return;
         }
-        else if (isNaN(valimt)) {
+        else if (isNaN(value) || value === 0) {
             setShowError(true);
             setTimeout(() => setShowError(false), 1000);
             return;
         }
-        resetGame();
-        setIsPaused(false);
         setInpPut(!inpPut);
+        resetGame();
+        setVersus(true);
+        setTimeout(() => setVersus(false), 500);
+        setIsPaused(false);
     }
     // take input value
     const takeFvalueChange = (event: React.ChangeEvent<HTMLInputElement>) => { setValueInp1(event.target.value); }
     const takeSvalueChange = (event: React.ChangeEvent<HTMLInputElement>) => { setValueInp2(event.target.value); }
-    const takeLimitValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseFloat(e.target.value);
-        setValueLimit(value);
-    }
+    // limit
+    const sumValue = () => { setValueLimit(valueLimit + 1) }
+    const restValue = () => { setValueLimit(valueLimit - 1) }
     // controls and bars
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
 
@@ -188,11 +201,17 @@ const Game = () => {
             }
             {showMenuPause ? <MenuPause newClick={NewGame} click={menuResume} restartClick={resetButton} /> : null}
             {showMenuWin ? <MenuWin name={winner} newClick={NewGame} restartClick={winResume} /> : null}
+            {versus ? <VersusComp playerOne={valueInp1} playerTwo={valueInp2} /> : null}
+            {rematch ? <Rematch playerOne={valueInp1} playerTwo={valueInp2} /> : null}
             {inpPut ?
                 <div className="rounded-xl w-full h-full absolute flex flex-col justify-center items-center  text-slate-900">
                     <div className='flex flex-col justify-center items-center'>
                         <h1 className='m-0 font-bold text-20 text-slate-700 '>L I M I T</h1>
-                        <input className='bg-slate-700 text-slate-300 w-40 h-40 text-center rounded-xl m-2 ' type="text" value={valueLimit} onChange={takeLimitValue} placeholder="Name" />
+                        <div className='flex flex-row justify-center items-center'>
+                            <button onClick={restValue}>-</button>
+                            <input className='bg-slate-700 text-slate-300 w-40 h-40 text-center rounded-xl m-2 ' type="text" value={valueLimit} placeholder="Name" />
+                            <button onClick={sumValue}>+</button>
+                        </div>
                     </div>
                     <input className='border-4 font-bold text-center text-slate-300 rounded-xl p-3 bg-green-800 border-green-400 my-2' type="text" value={valueInp1} onChange={takeFvalueChange} placeholder="P L A Y E R  1" />
                     <input className='border-4 font-bold text-center text-slate-300 rounded-xl p-3 bg-blue-800 border-blue-400' type="text" value={valueInp2} onChange={takeSvalueChange} placeholder="P L A Y E R  2" />
