@@ -78,7 +78,11 @@ const Game = () => {
     const takeSvalueChange = (event: React.ChangeEvent<HTMLInputElement>) => { setValueInp2(event.target.value); }
     // limit
     const sumValue = () => { setValueLimit(valueLimit + 1) }
-    const restValue = () => { setValueLimit(valueLimit - 1) }
+    const restValue = () => {
+        if (valueLimit > 0) {
+            setValueLimit(valueLimit - 1);
+        }
+    }
     // controls and bars
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
 
