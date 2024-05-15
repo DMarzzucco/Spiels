@@ -197,9 +197,9 @@ const Game = () => {
                 className="relative bg-blue-300 w-800 h-400"
                 style={{ pointerEvents: 'all' }}
             >
-                <div className=" absolute bg-white h-80 w-10 left-0" style={{ top: paddleLeftTop }} />
-                <div className=" absolute bg-black h-80 w-10 right-0" style={{ top: paddleRightTop }} />
-                <div className="absolute bg-red-500 w-20 h-20 rounded-full" style={{ left: ballPosition.x, top: ballPosition.y }} />
+                <div className=" absolute bg-blue-600 border border-black h-80 w-10 left-0" style={{ top: paddleLeftTop }} />
+                <div className=" absolute bg-green-600 border border-black h-80 w-10 right-0" style={{ top: paddleRightTop }} />
+                <div className="absolute bg-red-500 border border-black w-20 h-20 rounded-full" style={{ left: ballPosition.x, top: ballPosition.y }} />
             </div>
             {plusFirst ?
                 <Plus title={valueInp1} style={{
