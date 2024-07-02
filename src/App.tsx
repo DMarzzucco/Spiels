@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Home, Game } from "./pages"
-import Footer from "./components/Footer"
+import Footer from "./components/common/Footer"
 function App() {
 
   return (
@@ -9,15 +9,11 @@ function App() {
         <Route path="/" element={
           <>
             <Home />
-            <Footer/>
+            <Footer />
           </>
         } >
         </Route>
-        <Route path="/Game" element={
-          <>
-            <Game />
-          </>
-        }>
+        <Route path="/Game" element={<><Game /></>}>
         </Route>
       </Routes>
 

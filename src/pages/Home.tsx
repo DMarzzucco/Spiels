@@ -1,4 +1,4 @@
-import { LinkHome } from "../components/share";
+import { LinkHome } from "../components/assets/share";
 
 function Home() {
     return (

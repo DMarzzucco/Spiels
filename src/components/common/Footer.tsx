@@ -1,6 +1,6 @@
-import { LinkFut } from "./share"
-import { faGitAlt, faLinkedin, faGithub } from "../items/icons.ts"
+import { faGitAlt, faLinkedin, faGithub } from "../../icons/icons"
 import { Link } from "react-router-dom"
+import { LinkFut } from "../assets/share"
 function Footer() {
     return (
         <footer className="flex flex-col justify-center items-center">
