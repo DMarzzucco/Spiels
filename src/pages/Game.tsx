@@ -1,6 +1,6 @@
 import React, { useState, useEffect, KeyboardEvent } from 'react';
-import { BtnEc, Counter, ErrorMes, MenuPause, MenuWin, Plus, Rematch, VersusComp } from '../components/share';
-import { faHouse, faPlay } from "../items/icons.ts";
+import { BtnEc, Counter, ErrorMes, MenuPause, MenuWin, Plus, Rematch, VersusComp } from '../components/assets/share.tsx';
+import { faHouse, faPlay } from "../icons/icons.ts";
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -54,7 +54,7 @@ const Game = () => {
     const startButton = () => {
         const value: number = parseFloat(valueLimit.toString());
         let errorMessage: string = '';
-        console.log (errorMessage);
+        console.log(errorMessage);
         if (valueInp1 === '' || valueInp2 === '') {
             setShowError(true);
             errorMessage = inputMess;
@@ -215,8 +215,8 @@ const Game = () => {
                 }} />
                 : null
             }
-            {showMenuPause ? <MenuPause newClick={NewGame} click={menuResume} restartClick={resetButton} /> : null}
-            {showMenuWin ? <MenuWin name={winner} newClick={NewGame} restartClick={winResume} /> : null}
+            {showMenuPause ? <MenuPause newCLick={NewGame} click={menuResume} restartClick={resetButton} /> : null}
+            {showMenuWin ? <MenuWin name={winner} newCLick={NewGame} restartClick={winResume} /> : null}
             {versus ? <VersusComp playerOne={valueInp1} playerTwo={valueInp2} /> : null}
             {rematch ? <Rematch playerOne={valueInp1} playerTwo={valueInp2} /> : null}
             {inpPut ?
@@ -224,9 +224,9 @@ const Game = () => {
                     <div className='flex flex-col justify-center items-center'>
                         <h1 className='m-0 font-bold text-20 text-slate-700 '>L I M I T</h1>
                         <div className='flex flex-row justify-center items-center'>
-                            <BtnEc click={restValue} title='-' />
+                            <BtnEc click={restValue} name='-' />
                             <input className='bg-slate-700 text-slate-300 w-40 h-40 text-center rounded-xl m-2 ' type="text" value={valueLimit} readOnly placeholder="Name" />
-                            <BtnEc click={sumValue} title='+' />
+                            <BtnEc click={sumValue} name='+' />
                         </div>
                     </div>
                     {showErrorVl ? <ErrorMes mes={errorValue} /> : null}

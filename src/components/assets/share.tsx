@@ -1,13 +1,9 @@
-import { IconDefinition } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faRotateLeft } from "../items/icons.ts";
-import React, { CSSProperties } from "react"
+import { faHouse, faRotateLeft } from "../../icons/icons";
+import React from "react"
 import { Link } from "react-router-dom";
+import { CounterProps, ErrorProps, FooterProps, LinkHomeProp, MenuProps, VersusProps, plusProps } from "../../interfaces/interfaces";
 
-interface plusProps {
-    title: string | number,
-    style?: CSSProperties
-}
 export const Plus: React.FC<plusProps> = ({ title, style }) => {
     return (
         <div className=" absolute p-2 w-200 flex justify-center rounded-xl items-center text-slate-300 text-center text-20 "
@@ -17,13 +13,7 @@ export const Plus: React.FC<plusProps> = ({ title, style }) => {
     )
 }
 // Menu Pause
-interface MenuProps {
-    click?: () => void;
-    restartClick?: () => void;
-    newClick?: () => void;
-    name?: string | number | null;
-}
-export const MenuPause: React.FC<MenuProps> = ({ click, newClick, restartClick }) => {
+export const MenuPause: React.FC<MenuProps> = ({ click, newCLick, restartClick }) => {
     return (
         <div className="absolute flex flex-col  items-center  w-300 h-400 bg-green-700 bg-opacity-80 rounded-xl shadow-xl shadow-slate-900">
             <div className="bg-slate-700 rounded-t-xl mb-3 w-full flex flex-row justify-center items-center">
@@ -49,13 +39,13 @@ export const MenuPause: React.FC<MenuProps> = ({ click, newClick, restartClick }
             </div>
             <div className="border-t mt-2 pt-3  flex flex-col w-full  ">
                 <button className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={click}><p className="text-20">Return</p></button>
-                <button className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={newClick}><p className="text-20">New Game</p></button>
+                <button className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={newCLick}><p className="text-20">New Game</p></button>
             </div>
         </div>
     )
 }
 //MenuWin 
-export const MenuWin: React.FC<MenuProps> = ({ newClick, restartClick, name }) => {
+export const MenuWin: React.FC<MenuProps> = ({ newCLick, restartClick, name }) => {
     return (
         <div className="absolute flex flex-col justify-center items-center p-2 w-300 h-400 bg-blue-600 rounded-xl shadow-xl shadow-slate-900">
             <h1 className="text-center border-b my-3 text-20"> V I C T O R I A <br /> TO <br /> <i className="font-bold text-50">!!{name}!!</i></h1>
@@ -75,16 +65,12 @@ export const MenuWin: React.FC<MenuProps> = ({ newClick, restartClick, name }) =
                 </div>
             </div>
             <div className="border-t mt-2 pt-3  flex flex-col w-full  ">
-                <button className="m-2 p-2 text-20 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={newClick}>New Game</button>
+                <button className="m-2 p-2 text-20 border rounded-xl hover:bg-slate-300 hover:text-slate-800 hover:shadow-xl hover:shadow-slate-900" onClick={newCLick}>New Game</button>
             </div>
         </div>
     )
 }
 // Link 
-interface LinkHomeProp {
-    path: string,
-    title: string
-}
 export const LinkHome: React.FC<LinkHomeProp> = ({ path, title }) => {
     return (
         <Link className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:shadow-xl hover:shadow-slate-700" to={path}>
@@ -93,11 +79,6 @@ export const LinkHome: React.FC<LinkHomeProp> = ({ path, title }) => {
     )
 }
 // counter
-interface CounterProps {
-    counter: number,
-    color: CSSProperties,
-    name?: string | number | null;
-}
 export const Counter: React.FC<CounterProps> = ({ counter, name, color }) => {
     return (
         <div className="flex flex-col justify-center items-center">
@@ -111,11 +92,6 @@ export const Counter: React.FC<CounterProps> = ({ counter, name, color }) => {
     )
 }
 // footer
-interface FooterProps {
-    path: string;
-    icon: IconDefinition;
-    title: string;
-}
 export const LinkFut: React.FC<FooterProps> = ({ path, icon, title }) => {
     return (
         <Link className="mx-3 flex flex-col justify-center items-center" to={path}>
@@ -126,10 +102,6 @@ export const LinkFut: React.FC<FooterProps> = ({ path, icon, title }) => {
 
 }
 // versus
-interface VersusProps {
-    playerOne: string | number;
-    playerTwo: string | number;
-}
 export const VersusComp: React.FC<VersusProps> = ({ playerOne, playerTwo }) => {
     return (
         <div className="absolute bg-slate-100 w-auto p-4 h-200 flex flex-col justify-center items-center">
@@ -160,9 +132,6 @@ export const Rematch: React.FC<VersusProps> = ({ playerOne, playerTwo }) => {
     )
 }
 // Error message
-interface ErrorProps {
-    mes: string | boolean;
-}
 export const ErrorMes: React.FC<ErrorProps> = ({ mes }) => {
     return (
         <div className=" p-3 bg-red-800 m-2 border-2 border-red-400 rounded-xl flex flex-col justify-center items-center">
@@ -171,15 +140,12 @@ export const ErrorMes: React.FC<ErrorProps> = ({ mes }) => {
         </div>
     )
 }
-// button plus and rest
-
-interface ecuationProps {
-    click: () => void;
-    title: string
-}
-
-export const BtnEc: React.FC<ecuationProps> = ({ click, title }) => {
+// Rest & Plus Button 
+export const BtnEc: React.FC<MenuProps> = ({ click, name }) => {
     return (
-        <button className="p-2 border-2 font-bold hover:scale-90 text-slate-300 bg-slate-500 rounded-full  text-xl w-40 h-40 flex justify-center items-center " onClick={click}>{title}</button>
+        <button className="p-2 border-2 font-bold hover:scale-90 text-slate-300 bg-slate-500 rounded-full  text-xl w-40 h-40 flex justify-center items-center "
+            onClick={click}>
+            {name}
+        </button>
     )
 }
