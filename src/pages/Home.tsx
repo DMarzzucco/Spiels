@@ -1,6 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { LinkHome } from "../components/assets/share";
+import { gameState } from "../context/Game.context";
 
 function Home() {
+    const { playGame } = gameState()
+
+    const nav = useNavigate()
+    const handleButton = () => {
+        playGame()
+        nav("/Game")
+    }
     return (
         <section className="bg-gradient-to-r from-slate-500 to-slate-300 flex flex-col justify-center items-center h-screen w-full text-slate-800">
             <div className="flex flex-row justify-center items-center">
@@ -9,9 +18,11 @@ function Home() {
             </div>
             <div className="flex flex-col justify-center items-center  m-3 border border-slate-800 rounded-xl
             w-300">
-                <b className="text-center text-15 text-slate-300 bg-slate-700 rounded-t-xl w-full">Select the Game</b>
+                <b className="text-center text-15 text-slate-300 bg-slate-700 rounded-t-xl w-full">
+                    Select the Game
+                </b>
                 <div className="flex flex-col justify-center items-center p-2 m-2">
-                    <LinkHome path="/Game" title="Tennis" />
+                    <LinkHome click={handleButton} title="Tennis" />
                 </div>
             </div>
         </section>

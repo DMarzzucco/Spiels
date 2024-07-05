@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faRotateLeft } from "../../icons/icons";
 import React from "react"
 import { Link } from "react-router-dom";
-import { CounterProps, ErrorProps, FooterProps, LinkHomeProp, MenuProps, VersusProps, plusProps } from "../../interfaces/interfaces";
+import { compCounterProps, ErrorProps, FooterProps, LinkHomeProp, MenuProps, VersusProps, plusProps } from "../../ts/interfaces/interfaces";
 
 export const Plus: React.FC<plusProps> = ({ title, style }) => {
     return (
@@ -71,15 +71,16 @@ export const MenuWin: React.FC<MenuProps> = ({ newCLick, restartClick, name }) =
     )
 }
 // Link 
-export const LinkHome: React.FC<LinkHomeProp> = ({ path, title }) => {
+export const LinkHome: React.FC<LinkHomeProp> = ({ click, title }) => {
     return (
-        <Link className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:shadow-xl hover:shadow-slate-700" to={path}>
+        <button onClick={click}
+            className="m-2 p-2 border rounded-xl hover:bg-slate-300 hover:shadow-xl hover:shadow-slate-700">
             <p>{title}</p>
-        </Link>
+        </button>
     )
 }
 // counter
-export const Counter: React.FC<CounterProps> = ({ counter, name, color }) => {
+export const Counter: React.FC<compCounterProps> = ({ counter, name, color }) => {
     return (
         <div className="flex flex-col justify-center items-center">
             <i className="font-bold border-b">{name}</i>
