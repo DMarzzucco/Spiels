@@ -20,6 +20,17 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [winner, setWinner] = useState<string | number | null>(null)
     const [vCounter, setVCounter] = useState<CounterProps>(CounterItems)
     const [booleanState, dispatch] = useReducer(booleansReducer, booleansItems)
+
+    // take input value 
+    const handleInput = (player: 'one' | 'two') => (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue((prev) => ({
+            ...prev,
+            players: {
+                ...prev.players,
+                [player]: e.target.value
+            }
+        }))
+    }
     // controls and bars
     const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
         if (!booleanState.menu.starting) {
@@ -171,16 +182,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setSpielState(intSpiel);
         setVCounter(CounterItems)
     }
-    // take input value 
-    const handleInput = (player: 'one' | 'two') => (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue((prev) => ({
-            ...prev,
-            players: {
-                ...prev.players,
-                [player]: e.target.value
-            }
-        }))
-    }
+
     const changeValue = (operation: 'sum' | 'rest') => {
         setInputValue((prev) => {
             const newLimit = operation === 'sum' ? prev.limit + 1 :

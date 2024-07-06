@@ -89,8 +89,6 @@ export interface booleansProps {
         versus: boolean;
         rematch: boolean;
     }
-
-
 }
 export interface GameContextProps {
     spielState: spielProps
@@ -100,7 +98,6 @@ export interface GameContextProps {
     keyState: keyProps;
     animationsRef: React.MutableRefObject<number | undefined>;
     booleanState: booleansProps
-    // fuctions
     menuResume: () => void;
     NewGame: () => void;
     winResume: () => void;
