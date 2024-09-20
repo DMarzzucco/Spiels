@@ -13,7 +13,7 @@ $npm run dev
 
 ## Deploy
 
-(spielpack.)[https://spielpack.netlify.app/]
+[spielpack.](https://spielpack.netlify.app/)
 
 ## Author
 
